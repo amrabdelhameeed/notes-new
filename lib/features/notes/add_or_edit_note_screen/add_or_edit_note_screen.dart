@@ -1,10 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes_10_6/app_router.dart';
 import 'package:notes_10_6/core/random.dart';
 import 'package:notes_10_6/data/cubit/auth_cubit.dart';
-import 'package:notes_10_6/features/notes/add_or_edit_note_screen/widgets/colors_widget.dart';
 import 'package:notes_10_6/models/note.dart';
 import 'package:notes_10_6/models/notes_provider.dart';
 
@@ -75,7 +73,7 @@ class _AddOrEditNoteScreenState extends State<AddOrEditNoteScreen> {
             children: [
               TextFormField(
                   decoration: const InputDecoration(border: InputBorder.none),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                   autofocus: true,
                   minLines: 8,
                   maxLines: 8,
@@ -85,7 +83,10 @@ class _AddOrEditNoteScreenState extends State<AddOrEditNoteScreen> {
                         ? (controller.text.isEmpty ? '' : controller.text)
                         : (controller.text.isEmpty
                             ? widget.note!.text!
-                            : controller.text)),
+                            : controller.text)
+                    ..value.copyWith(
+                        selection: TextSelection.collapsed(
+                            offset: controller.text.length))),
               Wrap(
                 children: Note.colors
                     .map((e) => Padding(

@@ -28,9 +28,8 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider<AuthCubit>.value(
-              value: authCubit!
-                ..deleteAllOfflineDeletedNotes()
-                ..uploadAllNotSyncedNotes(),
+              value: authCubit!..deleteAllOfflineDeletedNotes(),
+              // ..uploadAllNotSyncedNotes(),
               child: NotesScreen(),
             );
           },

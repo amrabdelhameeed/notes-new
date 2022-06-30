@@ -21,51 +21,51 @@ class NotesScreen extends StatelessWidget {
   String ch = 'test';
   List<String> greetings = ['Hi, ', 'Have a nice day, ', 'good to see you, '];
 
-  static void addOrEdit({required BuildContext context, Note? note}) {
-    TextEditingController controller = TextEditingController();
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            actions: [
-              Column(
-                children: [
-                  TextFormField(
-                      autofocus: true,
-                      maxLines: 8,
-                      minLines: 1,
-                      style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyLarge!.color),
-                      controller: controller
-                        ..text = note == null ? '' : note.text!),
-                  BlocProvider<AuthCubit>.value(
-                    value: authCubit!,
-                    child: BlocBuilder<AuthCubit, AuthState>(
-                      builder: (context, state) {
-                        var cubit = BlocProvider.of<AuthCubit>(context);
-                        return TextButton(
-                            onPressed: () {
-                              note == null
-                                  ? cubit.uplaodNote(Note(
-                                      text: controller.text,
-                                      dateTime: DateTime.now().toString(),
-                                      color: Note
-                                          .colors[MyRandom.myRand()
-                                              .nextInt(Note.colors.length)]
-                                          .value))
-                                  : cubit.updateNote(controller.text, note);
-                              Navigator.pop(context);
-                            },
-                            child: const Text('save'));
-                      },
-                    ),
-                  )
-                ],
-              )
-            ],
-          );
-        });
-  }
+  // static void addOrEdit({required BuildContext context, Note? note}) {
+  //   TextEditingController controller = TextEditingController();
+  //   showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //           actions: [
+  //             Column(
+  //               children: [
+  //                 TextFormField(
+  //                     autofocus: true,
+  //                     maxLines: 8,
+  //                     minLines: 1,
+  //                     style: TextStyle(
+  //                         color: Theme.of(context).textTheme.bodyLarge!.color),
+  //                     controller: controller
+  //                       ..text = note == null ? '' : note.text!),
+  //                 BlocProvider<AuthCubit>.value(
+  //                   value: authCubit!,
+  //                   child: BlocBuilder<AuthCubit, AuthState>(
+  //                     builder: (context, state) {
+  //                       var cubit = BlocProvider.of<AuthCubit>(context);
+  //                       return TextButton(
+  //                           onPressed: () {
+  //                             note == null
+  //                                 ? cubit.uplaodNote(Note(
+  //                                     text: controller.text,
+  //                                     dateTime: DateTime.now().toString(),
+  //                                     color: Note
+  //                                         .colors[MyRandom.myRand()
+  //                                             .nextInt(Note.colors.length)]
+  //                                         .value))
+  //                                 : cubit.updateNote(controller.text, note);
+  //                             Navigator.pop(context);
+  //                           },
+  //                           child: const Text('save'));
+  //                     },
+  //                   ),
+  //                 )
+  //               ],
+  //             )
+  //           ],
+  //         );
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {

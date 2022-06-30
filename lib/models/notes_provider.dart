@@ -6,7 +6,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class NotesProvider {
   static final box = Hive.box<Note>(AppStrings.notesKey);
-  static Future<void> addNote(Note note) async => await box.add(note);
+  static Future<void> addNote(Note note) async {
+    if (!box.values
+        .toList()
+        .where((element) => element.dateTime == note.dateTime)
+        .isNotEmpty) {
+      await box.add(note);
+    }
+  }
+
   static Future<void> deleteNote(Note note) async => await note.delete();
   static Future<void> updateNote(String text, Note note) async {
     note.text = text;

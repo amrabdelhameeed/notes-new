@@ -87,8 +87,8 @@ class AuthCubit extends Cubit<AuthState> {
         .doc(note.dateTime!)
         .update(note.toMap())
         .then((value) {
-      emit(UpdateNoteSuccess());
       NotesProvider.markAsSynced(note);
+      emit(UpdateNoteSuccess());
     });
   }
 

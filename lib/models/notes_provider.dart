@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:notes_10_6/core/constants.dart';
 import 'package:notes_10_6/models/note.dart';
@@ -19,6 +20,16 @@ class NotesProvider {
 
   static Future<void> markAsSynced(Note note) async {
     note.isSynced = true;
+    await note.save();
+  }
+
+  static Future<void> markAsNotSynced(Note note) async {
+    note.isSynced = false;
+    await note.save();
+  }
+
+  static Future<void> changeColor(Note note, int color) async {
+    note.color = color;
     await note.save();
   }
 

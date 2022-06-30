@@ -6,5 +6,5 @@ class AppStrings {
   static const String userKey = 'userasjb';
   static const String notesScreen = '/notesScreen';
   static const String signUpScreen = '/signUpScreen';
-  static const String signInScreen = '/signInScreen';
+  static const String addOrEditScreen = '/addOrEditScreen';
 }

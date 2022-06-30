@@ -79,6 +79,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   updateNote(String text, Note note) async {
     NotesProvider.updateNote(text, note);
+    NotesProvider.markAsNotSynced(note);
     await firestoreInstance
         .collection('users')
         .doc(instance.currentUser!.uid)

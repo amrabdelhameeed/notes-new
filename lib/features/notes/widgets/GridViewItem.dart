@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_10_6/core/constants.dart';
 import 'package:notes_10_6/data/cubit/auth_cubit.dart';
 import 'package:notes_10_6/features/notes/notes_screen.dart';
 import 'package:notes_10_6/models/note.dart';
@@ -23,11 +24,8 @@ class GridViewItem extends StatelessWidget {
           onTap: () {
             // Navigator.pushNamed(context, EditScreenPage, arguments: note);
             FocusScope.of(context).unfocus();
-
-            NotesScreen.addOrEdit(
-              context: context,
-              note: note,
-            );
+            Navigator.pushNamed(context, AppStrings.addOrEditScreen,
+                arguments: note);
           },
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 800),
@@ -74,7 +72,7 @@ class GridViewItem extends StatelessWidget {
                       child: IconButton(
                           onPressed: () {},
                           icon: Icon(!note.isSynced!
-                              ? Icons.sync
+                              ? Icons.sync_problem
                               : Icons.check_circle),
                           color: Colors.white,
                           iconSize: 18),

@@ -34,14 +34,21 @@ class Note extends HiveObject {
     Color(0xff34856c),
     Color(0xff456ae6),
     Colors.pink,
+    Color(0xffAA4D4D),
+    Color(0xffAA3A73),
     Color(0xffa234c9),
     Color(0xffc93481),
     Color(0xff36878f),
     Color(0xffd4b04c),
+    Color(0xff37498c),
     Colors.blue,
-    Colors.pink,
+    Color(0xffc24e27),
+    Color(0xffc22727),
+    Color(0xffbf2a5e),
+    Colors.black,
     Colors.deepOrange,
     Colors.cyan,
+    Colors.amber
   ];
   Note.fromMap(Map<String, dynamic> map) {
     isSynced = map['isSynced'];

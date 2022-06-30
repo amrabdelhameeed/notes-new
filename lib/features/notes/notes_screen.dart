@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:notes_10_6/app_router.dart';
 import 'package:notes_10_6/core/components.dart';
+import 'package:notes_10_6/core/constants.dart';
 import 'package:notes_10_6/core/random.dart';
 import 'package:notes_10_6/data/cubit/auth_cubit.dart';
 import 'package:notes_10_6/features/notes/widgets/GridviewWidget.dart';
@@ -22,7 +23,6 @@ class NotesScreen extends StatelessWidget {
 
   static void addOrEdit({required BuildContext context, Note? note}) {
     TextEditingController controller = TextEditingController();
-
     showDialog(
         context: context,
         builder: (context) {
@@ -78,7 +78,9 @@ class NotesScreen extends StatelessWidget {
               child: const Icon(Icons.add),
               onPressed: () {
                 FocusScope.of(context).unfocus();
-                addOrEdit(context: context);
+                // addOrEdit(context: context);
+                Navigator.pushNamed(context, AppStrings.addOrEditScreen,
+                    arguments: Note());
               },
             ),
             body: Stack(
@@ -110,6 +112,7 @@ class NotesScreen extends StatelessWidget {
                               var cubit = BlocProvider.of<AuthCubit>(context);
                               if (state is LoginWithGoogleSuccess) {
                                 cubit.getAllNotes();
+                                cubit.uploadAllNotSyncedNotes();
                               }
                             },
                             builder: (context, state) {
@@ -118,26 +121,24 @@ class NotesScreen extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  FittedBox(
-                                    fit: BoxFit.contain,
-                                    child: AutoSizeText(
-                                        FirebaseAuth.instance.currentUser !=
-                                                null
-                                            ? greetings[0] +
-                                                FirebaseAuth.instance
-                                                    .currentUser!.displayName!
-                                                    .substring(
-                                                        0,
-                                                        FirebaseAuth
-                                                            .instance
-                                                            .currentUser!
-                                                            .displayName!
-                                                            .indexOf(' '))
-                                            : 'Hi, ',
-                                        style: Appstyles.kmidTextStyle,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis),
-                                  ),
+                                  AutoSizeText(
+                                      FirebaseAuth.instance.currentUser != null
+                                          ? greetings[0] +
+                                              FirebaseAuth.instance.currentUser!
+                                                  .displayName!
+                                                  .substring(
+                                                      0,
+                                                      FirebaseAuth
+                                                          .instance
+                                                          .currentUser!
+                                                          .displayName!
+                                                          .indexOf(' '))
+                                          : 'Hi, ',
+                                      maxFontSize: 80,
+                                      minFontSize: 40,
+                                      style: Appstyles.kmidTextStyle,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis),
                                   Row(
                                     children: [
                                       FirebaseAuth.instance.currentUser == null
@@ -198,6 +199,7 @@ class _VLBState extends State<VLB> {
             .where((element) => element.text!.contains(ch))
             .where((element) => element.isDeletedOffline != true)
             .toList();
+        hiveNotes.sort((b, a) => a.dateTime!.compareTo(b.dateTime!));
         return Column(
           children: [
             TextFormField(

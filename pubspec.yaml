@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  # auto_direction: ^0.0.6
   auto_size_text: ^3.0.0
   bloc: ^8.0.3
   cloud_firestore: ^3.1.18
